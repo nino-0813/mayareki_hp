@@ -51,18 +51,6 @@ export default function Footer() {
             <h3 className="text-white text-sm tracking-wider mb-4">お問い合わせ</h3>
             <div className="space-y-2 text-sm text-stone-400">
               <p>営業時間: {SITE.businessHours}</p>
-              <a
-                href={`mailto:${SITE.email}`}
-                className="block hover:text-amber-400 transition-colors"
-              >
-                {SITE.email}
-              </a>
-              <a
-                href={`tel:${SITE.tel}`}
-                className="block hover:text-amber-400 transition-colors"
-              >
-                {SITE.tel}
-              </a>
             </div>
             <Link
               href="/contact"
