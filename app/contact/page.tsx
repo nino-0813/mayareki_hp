@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ function formatDateFromQuery(dateStr: string, timeStr?: string | null) {
   return base;
 }
 
-export default function ContactPage() {
+function ContactContent() {
   const searchParams = useSearchParams();
   const dateParam = searchParams.get('date');
   const timeParam = searchParams.get('time');
@@ -226,5 +226,37 @@ export default function ContactPage() {
         </div>
       </Section>
     </>
+  );
+}
+
+function ContactFallback() {
+  return (
+    <>
+      <section className="cosmic-bg pt-32 pb-20 px-4 sm:px-6 text-center">
+        <p className="text-amber-400 font-display text-lg tracking-widest mb-3">Contact</p>
+        <h1 className="text-white text-3xl sm:text-4xl tracking-wider">お問い合わせ</h1>
+      </section>
+      <Section className="py-20 lg:py-28 px-4 sm:px-6 bg-stone-50">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-8 animate-pulse">
+            <div className="h-6 bg-stone-100 rounded w-3/4 mx-auto mb-8" />
+            <div className="space-y-5">
+              <div className="h-12 bg-stone-100 rounded-xl" />
+              <div className="h-12 bg-stone-100 rounded-xl" />
+              <div className="h-12 bg-stone-100 rounded-xl" />
+              <div className="h-32 bg-stone-100 rounded-xl" />
+            </div>
+          </div>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<ContactFallback />}>
+      <ContactContent />
+    </Suspense>
   );
 }
